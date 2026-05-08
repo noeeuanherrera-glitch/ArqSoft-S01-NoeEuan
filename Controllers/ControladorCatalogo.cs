@@ -14,7 +14,7 @@ namespace Catalogo1.Controllers
             {
                 Id = 1, Titulo = "Chisato Nishikigi", Genero = "Agente", Ano = 2022,
                 Consola = "DA - 1ra Clase", Descripcion = "la Hermosa Especialista en combate no letal.",
-                ImagenUrl = "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQSckhlIU3tCS9QhSiaexVmeqDEcLCWOXt1KPY4ZVn_at97b1QG"
+                ImagenUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTyfqZREUkLjVg0Gob146XG4fctbrIpCtk9g&s"
             },
             new Item
             {
@@ -44,7 +44,7 @@ namespace Catalogo1.Controllers
             {
                 Id = 6, Titulo = "Uniforme LycoReco", Genero = "Uniforme", Ano = 2022,
                 Consola = "Vestimenta", Descripcion = "Uniforme del café para operaciones.",
-                ImagenUrl = "https://cdn.somoskudasai.com/image/9b3f8105c6c6b42ffd5675a58b19116c/452x263/story_2343_photo_1656689171861354295.webp"
+                ImagenUrl = "https://www.gcosplay.com/cdn/shop/products/1_c31c003c-00b3-4836-8cb6-c2ac18b9f759.jpg?v=1659496621",
             },
             new Item
             {
