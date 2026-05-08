@@ -1,0 +1,36 @@
+﻿@model Catalogo1.Models.Item
+
+<h1>Agregar nuevo agente</h1>
+
+<form asp-action="Agregar" method="post">
+    <div class="form-group">
+        <label>Título</label>
+        <input asp-for="Titulo" class="form-control" />
+    </div>
+    
+    <div class="form-group">
+        <label>Género</label>
+        <input asp-for="Genero" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Consola</label>
+        <input asp-for="Consola" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Año</label>
+        <input asp-for="Ano" type="number" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Descripción</label>
+        <textarea asp-for="Descripcion" class="form-control"></textarea>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-success">Guardar Agente</button>
+</form>
+
+<hr />
+<a asp-action="Index" class="btn btn-link">&larr; Cancelar y volver</a>
