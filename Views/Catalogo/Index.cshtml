@@ -1,51 +1,94 @@
 ﻿@model List<Catalogo1.Models.Item>
 
 <style>
-    /* 1. Fondo Global para esta página (Sustituye el blanco) */
     body {
-        background-color: #0f0f0f; /* Negro casi total */
-        background-image: 
-            linear-gradient(rgba(230, 0, 18, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(230, 0, 18, 0.03) 1px, transparent 1px);
-        background-size: 30px 30px; /* Cuadrícula táctica sutil */
+        background-color: #0f0f0f;
+        background-image: linear-gradient(rgba(230, 0, 18, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(230, 0, 18, 0.03) 1px, transparent 1px);
+        background-size: 30px 30px;
         color: #e0e0e0;
     }
 
-    /* 2. Animación de "Escaneo" en el fondo */
-    body::after {
-        content: "";
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 2px;
-        background: rgba(230, 0, 18, 0.1);
-        animation: scanline 8s linear infinite;
-        z-index: -1;
-    }
+    /* --- ESTILOS DE CATEGORÍAS --- */
 
-    @@keyframes scanline {
-        0% { top: -5%; }
-        100% { top: 105%; }
-    }
-
-    /* 3. Mejoras en las Tarjetas para que resalten en fondo oscuro */
-    .card {
-        background-color: #1a1a1a !important;
-        color: white !important;
+    .card-operativa {
+        background: rgba(26, 26, 26, 0.9) !important;
+        border-radius: 15px;
+        overflow: hidden;
+        /* Aumentamos la suavidad de la transición para el salto */
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        position: relative;
         border: 1px solid #333 !important;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 1;
     }
 
-    .card:hover {
-        transform: translateY(-12px);
-        box-shadow: 0 10px 30px rgba(230, 0, 18, 0.5) !important;
-        border-color: #E60012 !important;
+        /* REGLA DE ORO: El Salto (Pop-Up) */
+        .card-operativa:hover {
+            transform: translateY(-20px) scale(1.05) !important; /* Salta hacia arriba y crece un 5% */
+            z-index: 100 !important; /* Se posiciona por encima de todas las demás */
+        }
+
+    /* 1. ESTILO ÉLITE (Rojo) */
+    .agente-elite {
+        border: 2px solid #E60012 !important;
+        box-shadow: 0 0 15px rgba(230, 0, 18, 0.3) !important;
     }
 
-    .card-body.bg-light {
-        background-color: #222 !important; /* Cambiamos el gris claro por oscuro */
+        .agente-elite:hover {
+            box-shadow: 0 10px 40px rgba(230, 0, 18, 0.7) !important; /* Brillo intenso al hover */
+        }
+
+        .agente-elite::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(230, 0, 18, 0.25), transparent 30%);
+            animation: rotateRadar 4s linear infinite;
+            z-index: 0;
+        }
+
+    /* 2. ESTILO SOPORTE (Dorado) */
+    .agente-soporte {
+        border: 1.5px solid #FFD700 !important;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.2) !important;
     }
 
-    /* 4. Títulos con brillo */
+        .agente-soporte:hover {
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.5) !important; /* Brillo dorado al hover */
+            border-color: #FFD700 !important;
+        }
+
+    /* 3. ESTILO ANTAGONISTA (Púrpura) */
+    .agente-villano {
+        border: 1.5px solid #8A2BE2 !important;
+        box-shadow: 0 0 10px rgba(138, 43, 226, 0.2) !important;
+    }
+
+        .agente-villano:hover {
+            box-shadow: 0 10px 40px rgba(138, 43, 226, 0.6) !important; /* Brillo púrpura al hover */
+            border-color: #8A2BE2 !important;
+        }
+
+    @@keyframes rotateRadar {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .card-content-wrapper {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+    }
+    
+    .badge-tactico {
+        clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        padding: 5px 12px !important;
+        font-weight: bold;
+    }
+
     .main-title {
         color: white;
         text-shadow: 0 0 10px rgba(230, 0, 18, 0.7);
@@ -57,52 +100,65 @@
 <div class="video-container shadow" style="position: relative; height: 350px; overflow: hidden; border-radius: 15px; margin-bottom: 30px; border: 2px solid #E60012; background-color: black;">
     <iframe style="position: absolute; top: 50%; left: 50%; width: 100%; height: 180%; transform: translate(-50%, -50%); pointer-events: none;"
             src="https://www.youtube.com/embed/VxR_BYPG7v4?autoplay=1&mute=1&controls=0&loop=1&playlist=VxR_BYPG7v4&rel=0&modestbranding=1"
-            title="LycorisRecoil Intelligence System"
-            frameborder="0"
-            allow="autoplay; encrypted-media">
-    </iframe>
-    
+            title="LycorisRecoil Intelligence System" frameborder="0" allow="autoplay; encrypted-media"></iframe>
     <div style="position: absolute; background: rgba(0,0,0,0.5); width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <h1 class="main-title" style="letter-spacing: 3px; font-size: 2.5rem;">
-            LYCORISRECOIL INTELLIGENCE SYSTEM
-        </h1>
+        <h1 class="main-title" style="letter-spacing: 3px; font-size: 2.5rem;">LYCORISRECOIL INTELLIGENCE SYSTEM</h1>
         <p style="color: rgba(255,255,255,0.8); font-style: italic; letter-spacing: 1px;">Identificación de Agentes y Recursos Tácticos - Sector Muna</p>
     </div>
 </div>
 
 <h1 class="text-center my-4 main-title" style="font-size: 1.8rem;">Base de Datos Operativa</h1>
 
-<div class="text-center mb-4">
-    <a asp-action="Index" class="btn btn-danger btn-sm">Todos</a>
-    @foreach (var gen in ViewBag.Generos as List<string>)
-    {
-        <a asp-action="Index" asp-route-genero="@gen" class="btn btn-outline-light btn-sm mx-1">@gen</a>
-    }
-</div>
-
-<hr style="border-color: #444;" />
-
 <div class="row">
     @foreach (var item in Model)
     {
+        string claseExtra = "";
+        string textoNivel = "OPERATIVO";
+        
+        if (item.Titulo.Contains("Chisato") || item.Titulo.Contains("Takina"))
+        {
+            claseExtra = "agente-elite";
+            textoNivel = "NIVEL S";
+        }
+        else if (item.Genero == "Soporte" || item.Genero == "Recurso")
+        {
+            claseExtra = "agente-soporte";
+            textoNivel = "SUPPORT";
+        }
+        else if (item.Genero == "Antagonista" || item.Genero == "Enemigo")
+        {
+            claseExtra = "agente-villano";
+            textoNivel = "TARGET";
+        }
+
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="@item.ImagenUrl" class="card-img-top" alt="@item.Titulo" style="height: 250px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px; filter: grayscale(20%) contrast(1.1);">
-                
-                <div class="card-body text-center">
-                    <h5 class="card-title fw-bold">@item.Titulo</h5>
-                    <span class="badge @(item.Genero == "Agente" ? "bg-danger" : "bg-secondary") mb-2">@item.Genero</span>
-                    <p class="small text-muted">@item.Consola</p>
+            <div class="card card-operativa h-100 @claseExtra">
+                <div class="card-content-wrapper h-100 d-flex flex-column">
+                    <div style="position: relative; overflow: hidden;">
+                        <img src="@item.ImagenUrl" class="card-img-top" alt="@item.Titulo"
+                             style="height: 250px; object-fit: cover;">
+                        
+                        <div style="position: absolute; top: 10px; right: 10px;">
+                            <span class="badge @(textoNivel == "NIVEL S" ? "bg-danger" : (textoNivel == "SUPPORT" ? "bg-warning text-dark" : "bg-primary")) shadow">
+                                @textoNivel
+                            </span>
+                        </div>
+                    </div>
                     
-                    <a asp-action="Detalle" asp-route-id="@item.Id" class="btn btn-danger btn-sm w-100">Ver Expediente</a>
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title fw-bold text-white">@item.Titulo</h5>
+                        <div class="mb-2">
+                            <span class="badge @(claseExtra == "agente-elite" ? "bg-danger" : "bg-dark") badge-tactico">@item.Genero</span>
+                        </div>
+                        <p class="small text-muted mt-auto">Hardware: @item.Consola</p>
+                        
+                        <a asp-action="Detalle" asp-route-id="@item.Id"
+                               class="btn @(claseExtra == "agente-elite" ? "btn-danger" : (claseExtra == "agente-soporte" ? "btn-warning" : "btn-outline-info")) btn-sm w-100 fw-bold mt-2">
+                            VER EXPEDIENTE
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     }
-</div>
-
-<hr style="border-color: #444;" />
-
-<div class="text-center mb-5">
-    <a asp-action="Agregar" class="btn btn-success btn-lg shadow" style="border: none;">+ Registrar Nuevo Agente Secreto</a>
 </div>
