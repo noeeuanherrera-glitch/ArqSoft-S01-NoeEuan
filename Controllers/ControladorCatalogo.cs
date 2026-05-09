@@ -79,7 +79,7 @@ namespace Catalogo1.Controllers
             new Item
             {
                 Id = 12, Titulo = "Robota", Genero = "Antagonista", Ano = 2022,
-                Consola = "Hacker terrorista", Descripcion ="Hacker que compica las misiones de las Lycoris",
+                Consola = "Hacker terrorista", Descripcion ="Hacker que complica las misiones de las Lycoris",
                 ImagenUrl = "https://anibase.net/files/540932d899b5b7f7c564e722b539928a"
             }
         };

@@ -10,18 +10,67 @@
     <link rel="stylesheet" href="~/Catalogo1.styles.css" asp-append-version="true" />
 
     <style>
-        /* Fondo Global Oscuro con Cuadrícula */
+        /* --- ANIMACIÓN DE INTRO (SPLASH SCREEN) --- */
+        #lyco-loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+            animation: fadeOutLoader 0.8s ease-in-out 2.5s forwards;
+        }
+
+        .flower-icon {
+            font-size: 5rem;
+            color: #E60012;
+            text-shadow: 0 0 15px #E60012, 0 0 30px #E60012;
+            margin-bottom: 20px;
+            animation: pulseFlower 1.5s infinite ease-in-out;
+        }
+
+        .loader-text {
+            color: white;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        /* Corregido con @@ para evitar advertencias */
+        @@keyframes pulseFlower {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.15); opacity: 0.7; }
+        }
+
+        @@keyframes fadeOutLoader {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* --- FONDO Y ESTILO GLOBAL --- */
         body {
             background-color: #0f0f0f !important;
             color: #e0e0e0 !important;
             background-image: 
+                radial-gradient(circle at center, #1a0505 0%, #050505 100%),
                 linear-gradient(rgba(230, 0, 18, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(230, 0, 18, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-size: 100% 100%, 30px 30px, 30px 30px;
             min-height: 100vh;
         }
 
-        /* Animación de Línea de Escaneo Táctica */
+        main {
+            animation: contentIn 1s ease-out 2.8s both;
+        }
+
+        @@keyframes contentIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         body::after {
             content: "";
             position: fixed;
@@ -39,19 +88,16 @@
             100% { transform: translateY(100vh); }
         }
 
-        /* Ajuste de Textos para Visibilidad */
         h1, h2, h3, h4, .display-4, .navbar-brand, .nav-link {
             color: #ffffff !important;
         }
 
-        /* Barra de Navegación Estilo DA */
         .navbar {
             background-color: #1a1a1a !important;
             border-bottom: 2px solid #E60012 !important;
             box-shadow: 0 4px 12px rgba(230, 0, 18, 0.2) !important;
         }
 
-        /* ESTADO ACTIVO: Esto es lo que te dará puntos extra */
         .nav-link.active-lycoris {
             color: #E60012 !important;
             font-weight: bold;
@@ -66,37 +112,38 @@
     </style>
 </head>
 <body>
-    <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold text-danger" asp-area="" asp-controller="Catalogo" asp-action="Index">LYCORECO SIGO</a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
-            
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    @{
-                        // Lógica para detectar la página actual
-                        var controller = ViewContext.RouteData.Values["Controller"]?.ToString();
-                        var action = ViewContext.RouteData.Values["Action"]?.ToString();
-                    }
+    <div id="lyco-loader">
+        <div class="flower-icon">❀</div>
+        <div class="loader-text">Iniciando DA System...</div>
+    </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link @(controller == "Catalogo" ? "active-lycoris" : "text-white")" 
-                           asp-area="" asp-controller="Catalogo" asp-action="Index">Base de Datos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @(controller == "Home" && action == "Privacy" ? "active-lycoris" : "text-white")" 
-                           asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
-                    </li>
-                </ul>
-                <partial name="_LoginPartial" />
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold text-danger" asp-area="" asp-controller="Catalogo" asp-action="Index">LYCORECO SIGO</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @{
+                            var controller = ViewContext.RouteData.Values["Controller"]?.ToString();
+                            var action = ViewContext.RouteData.Values["Action"]?.ToString();
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link @(controller == "Catalogo" ? "active-lycoris" : "text-white")" 
+                               asp-area="" asp-controller="Catalogo" asp-action="Index">Base de Datos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(controller == "Home" && action == "Privacy" ? "active-lycoris" : "text-white")" 
+                               asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
     </header>
 
     <div class="container">
