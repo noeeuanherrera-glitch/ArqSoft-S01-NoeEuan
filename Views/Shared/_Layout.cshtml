@@ -51,6 +51,14 @@
             box-shadow: 0 4px 12px rgba(230, 0, 18, 0.2) !important;
         }
 
+        /* ESTADO ACTIVO: Esto es lo que te dará puntos extra */
+        .nav-link.active-lycoris {
+            color: #E60012 !important;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(230, 0, 18, 0.8);
+            border-bottom: 2px solid #E60012;
+        }
+
         footer {
             background-color: #0f0f0f;
             border-top: 1px solid #333 !important;
@@ -70,18 +78,27 @@
             
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
+                    @{
+                        // Lógica para detectar la página actual
+                        var controller = ViewContext.RouteData.Values["Controller"]?.ToString();
+                        var action = ViewContext.RouteData.Values["Action"]?.ToString();
+                    }
+
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Catalogo" asp-action="Index">Base de Datos</a>
+                        <a class="nav-link @(controller == "Catalogo" ? "active-lycoris" : "text-white")" 
+                           asp-area="" asp-controller="Catalogo" asp-action="Index">Base de Datos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+                        <a class="nav-link @(controller == "Home" && action == "Privacy" ? "active-lycoris" : "text-white")" 
+                           asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
                     </li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
         </div>
     </nav>
-</header>
+    </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -93,6 +110,7 @@
             &copy; 2026 - DA INTELLIGENCE SYSTEM - MUNA, YUC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

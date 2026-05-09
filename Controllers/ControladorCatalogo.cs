@@ -42,27 +42,45 @@ namespace Catalogo1.Controllers
             },
             new Item
             {
-                Id = 6, Titulo = "Uniforme LycoReco", Genero = "Uniforme", Ano = 2022,
+                Id = 6, Titulo = "Uniforme LycorisRecoil", Genero = "Uniforme Chisato", Ano = 2022,
                 Consola = "Vestimenta", Descripcion = "Uniforme del café para operaciones.",
                 ImagenUrl = "https://www.gcosplay.com/cdn/shop/products/1_c31c003c-00b3-4836-8cb6-c2ac18b9f759.jpg?v=1659496621",
             },
             new Item
             {
-                 Id = 7, Titulo = "Mizuki Nakahara", Genero = "Soporte", Ano = 2022,
+                Id = 7, Titulo = "Uniforme LycorisRecoil", Genero = "Uniforme Takina", Ano = 2022,
+                Consola = "Vestimenta", Descripcion = "Uniforme del café para operaciones.",
+                ImagenUrl = "https://www.gcosplay.com/cdn/shop/products/1_c2f46062-88fb-4398-89d0-da96acba5637.jpg?v=1659496722",
+            },
+            new Item
+            {
+                 Id = 8, Titulo = "Mizuki Nakahara", Genero = "Soporte", Ano = 2022,
                 Consola = "Logística", Descripcion = "Jefa de Operaciones de logística.",
                 ImagenUrl = "https://cdn.rafled.com/anime-icons/images/IGxsRyO10iGZOBRp9Jk5IjWr69HpTZQq.jpg"
             }, 
             new Item
             {
-                Id = 8, Titulo = "Mika", Genero = "Soporte", Ano = 2022, 
+                Id = 9, Titulo = "Mika", Genero = "Soporte", Ano = 2022, 
                 Consola = "Logistica", Descripcion ="Mentor", 
                 ImagenUrl = "https://shikimori.one/system/characters/original/207493.jpg"
             },
             new Item
             {
-                Id = 9, Titulo = "Shinji Yoshimatsu", Genero = "Antagonista", Ano = 2022,
+                Id = 10, Titulo = "Shinji Yoshimatsu", Genero = "Antagonista", Ano = 2022,
                 Consola = "Miembro del instituo Alan", Descripcion =" Miembro de alto rango del Instituto Alan, una organización secreta que busca y apoya a personas con talentos excepcionales",
-                ImagenUrl = "https://myanimelist.net/images/characters/10/480168.jpg"
+                ImagenUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDL1tVDZyhfs4WvjHsGvFwayNGduxvFMutnA&s"
+            },
+            new Item
+            {
+                Id = 11, Titulo = "Majima", Genero = "Antagonista", Ano = 2022,
+                Consola = "Terrorista", Descripcion ="Es un terrorista que cree que Japón miente sobre los datos de seguridad pública y quiere compensarlo cometiendo actos terroristas para derrocar a Lycoris",
+                ImagenUrl = "https://assets.mycast.io/actor_images/actor-majima-lycoris-recoil-611380_large.jpg?1670010507"
+            },
+            new Item
+            {
+                Id = 12, Titulo = "Robota", Genero = "Antagonista", Ano = 2022,
+                Consola = "Hacker terrorista", Descripcion ="Hacker que compica las misiones de las Lycoris",
+                ImagenUrl = "https://anibase.net/files/540932d899b5b7f7c564e722b539928a"
             }
         };
 
