@@ -14,7 +14,7 @@ namespace Catalogo1.Controllers
             {
                 Id = 1, Titulo = "Chisato Nishikigi", Genero = "Agente", Ano = 2022,
                 Consola = "DA - 1ra Clase", Descripcion = "la Hermosa Especialista en combate no letal.",
-                ImagenUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTyfqZREUkLjVg0Gob146XG4fctbrIpCtk9g&s"
+                ImagenUrl = "https://pbs.twimg.com/media/Fu0wroGWcAEm80V.png"
             },
             new Item
             {
