@@ -2,79 +2,119 @@
 
 @{
     bool esElite = Model.Titulo.Contains("Chisato") || Model.Titulo.Contains("Takina");
-    string colorHex = esElite ? "#E60012" : "#FFD700"; // Rojo para ellas, dorado para otros
+    string accentColor = esElite ? "#E60012" : "#FFD700";
+    
+    // Aquí definimos la foto extra. Si es Chisato, pone su foto de uniforme, si es Takina, otra.
+    string fotoExtra = Model.Titulo.Contains("Chisato")
+        ? "https://cdn.rafled.com/anime-icons/images/FF1jwx5NfSER5WyVF9RQfVImfmuRk25L.jpg"
+        : "https://i.pinimg.com/736x/fc/ac/45/fcac456d9071c3aa29e15683966768a9.jpg";
 }
 
 <style>
     body {
-        background: #080808;
-        color: #fff;
+        background-color: #080808;
+        background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+        background-size: 24px 24px;
     }
 
-    .terminal-frame {
-        border: 2px solid @colorHex;
-        background: rgba(20, 20, 20, 0.9);
-        box-shadow: 0 0 30px rgba(0,0,0,1), inset 0 0 15px @(colorHex) 33;
-        padding: 30px;
+    .terminal-container {
+        border: 1px solid rgba(255,255,255,0.1);
+        background: #0f0f0f;
+        padding: 40px;
         margin-top: 30px;
-        border-radius: 5px;
+        position: relative;
+        overflow: hidden; /* Para que la flor no se salga del cuadro */
     }
 
-    .desc-box {
-        background: rgba(255,255,255,0.03);
-        border-left: 4px solid @colorHex;
-        padding: 20px;
+    /* LA FLOR: Ahora con clase para asegurar que se vea */
+    .flower-bg {
+        position: absolute;
+        bottom: -30px;
+        right: -30px;
+        width: 300px;
+        opacity: 0.2;
+        z-index: 1;
+        filter: drop-shadow(0 0 10px @accentColor );
+    }
+
+    .label-header {
         font-family: 'Consolas', monospace;
-        color: #ddd;
-        font-size: 1.1rem;
-        line-height: 1.7;
+        color: @accentColor;
+        font-size: 0.8rem;
+        letter-spacing: 3px;
     }
 
-    .label-tech {
-        color: @colorHex;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        letter-spacing: 2px;
-        display: block;
+    .desc-terminal {
+        background: rgba(0,0,0,0.6);
+        border-left: 3px solid @accentColor;
+        padding: 25px;
+        margin-top: 20px;
+        position: relative;
+        z-index: 2; /* Por encima de la flor */
+    }
+
+    .secondary-photo {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border: 1px solid @accentColor;
+        float: right;
+        margin-left: 20px;
+        margin-bottom: 10px;
+        box-shadow: 0 0 15px @(accentColor) 44;
     }
 </style>
 
 <div class="container">
-    <div class="terminal-frame">
-        <div class="row">
-            <div class="col-md-5 text-center">
-                <img src="@Model.ImagenUrl" class="img-fluid border border-secondary p-2" style="max-height: 400px; filter: contrast(1.1);">
+    <div class="terminal-container shadow-lg">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Cluster_amaryllis_close-up.jpg" class="flower-bg">
+
+        <div class="row" style="position: relative; z-index: 3;">
+            <div class="col-md-5">
+                <div class="p-1 border border-secondary">
+                    <img src="@Model.ImagenUrl" class="img-fluid" style="filter: brightness(0.8) contrast(1.2);">
+                </div>
                 <div class="mt-3">
-                    <span class="badge bg-dark border border-@((esElite ? "danger" : "warning")) p-2 w-100">
-                        STATUS: ANALIZANDO OBJETIVO...
-                    </span>
+                    <div class="progress" style="height: 2px; background: #333;">
+                        <div class="progress-bar" style="width: 100%; background: @accentColor;"></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-1">
+                        <span class="label-header">ID: @Model.Id</span>
+                        <span class="label-header">STATUS: CONFIRMED</span>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-7">
-                <h1 class="display-5 fw-bold" style="text-shadow: 0 0 10px @colorHex;">@Model.Titulo</h1>
-                <p class="text-muted mb-4">// ID_SISTEMA: DA-@Model.Id.ToString("D4")</p>
+                <h1 class="display-4 fw-bold text-white">@Model.Titulo</h1>
+                <p class="text-muted" style="letter-spacing: 2px;">MUNA_SECTORIAL // DATA_CENTER_YUCATÁN</p>
 
-                <div class="row mb-4">
-                    <div class="col-6">
-                        <span class="label-tech">Clasificación</span>
-                        <span class="h5">@Model.Genero</span>
+                <div class="row my-4">
+                    <div class="col-6 border-end border-secondary">
+                        <span class="label-header">CATEGORÍA</span>
+                        <h4 class="text-white">@Model.Genero</h4>
                     </div>
-                    <div class="col-6">
-                        <span class="label-tech">Equipamiento</span>
-                        <span class="h5">@Model.Consola</span>
+                    <div class="col-6 ps-4">
+                        <span class="label-header">EQUIPAMIENTO</span>
+                        <h4 class="text-white">@Model.Consola</h4>
                     </div>
                 </div>
 
-                <div class="desc-box">
-                    <span class="label-tech mb-2">Resumen Operativo:</span>
-                    @Model.Descripcion
+                <div class="desc-terminal">
+                    @if (esElite)
+                    {
+                        <img src="@fotoExtra" class="secondary-photo" alt="Recon_Photo">
+                    }
+                    <span class="label-header" style="opacity: 0.5;">REPORTE DE CAMPO:</span>
+                    <p class="mt-2" style="font-size: 1.1rem; color: #eee;">
+                        @Model.Descripcion
+                    </p>
+                    <div style="clear: both;"></div>
                 </div>
 
-                <div class="mt-5 d-flex gap-2">
-                    <a asp-action="Index" class="btn btn-outline-light px-4">VOLVER AL MENÚ</a>
-                    <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-danger px-4" style="background:@colorHex; border:none;">EDITAR ARCHIVO</a>
+                <div class="mt-5">
+                    <a asp-action="Index" class="btn btn-outline-light btn-sm px-4">REGRESAR</a>
+                    <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-danger btn-sm px-4" style="background:@accentColor; border:none;">MODIFICADOR</a>
                 </div>
             </div>
         </div>
